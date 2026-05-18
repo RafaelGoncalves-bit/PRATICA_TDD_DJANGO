@@ -54,9 +54,12 @@
         <i class="fas fa-plus me-2"></i>Cadastrar
       </a>
 
-      <a href="#" class="btn btn-secondary btn-action">
+      <button onclick="window.location.href='/listar'" class="btn btn-secondary btn-action">
         <i class="fas fa-list me-2"></i>Listar
-      </a>
+      </button>
+      {% if listar %}
+      {{ dados }}
+      {% endif %}
 
       <a href="#" class="btn btn-warning btn-action text-white">
         <i class="fas fa-edit me-2"></i>Editar

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from core.forms import LoginForm
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from core.models import LinkModel
 
 def login(request):
     if request.user.id is not None:
@@ -26,4 +27,9 @@ def logout(request):
 @login_required
 def home(request):
     context = {}
+    return render(request, 'index.html', context)
+
+def listar(request):
+    data = LinkModel.objects.all()
+    context = {'dados': data, 'listar': True}
     return render(request, 'index.html', context)

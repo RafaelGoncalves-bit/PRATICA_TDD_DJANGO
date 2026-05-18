@@ -50,16 +50,17 @@
     <div class="card">
       <h2 class="mb-4">Painel de Ações</h2>
 
+      {% if not listar %}
+
       <a href="#" class="btn btn-primary btn-action">
         <i class="fas fa-plus me-2"></i>Cadastrar
       </a>
 
+
       <button onclick="window.location.href='/listar'" class="btn btn-secondary btn-action">
         <i class="fas fa-list me-2"></i>Listar
       </button>
-      {% if listar %}
-      {{ dados }}
-      {% endif %}
+
 
       <a href="#" class="btn btn-warning btn-action text-white">
         <i class="fas fa-edit me-2"></i>Editar
@@ -74,6 +75,14 @@
         <button type="submit" class="btn btn-outline-dark w-100 mt-3">
           <i class="fas fa-sign-out-alt me-2"></i>Logout
         </button>
+        {% endif %}
+
+        {% if listar %}
+        <button onclick="window.location.href='/'" class="btn btn-danger btn-action">
+          <i class="fas me-2"></i>Voltar
+        </button>
+        {{ dados }}
+        {% endif %}
       </form>
     </div>
   </div>

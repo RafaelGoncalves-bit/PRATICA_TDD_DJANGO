@@ -6,4 +6,4 @@ class LinkModel(models.Model):
     observacao = models.TextField(blank=True)
 
     def __str__(self):
-        return f"{self.titulo} - {self.link}"
+        return f"Nome: {self.titulo} Link: {self.link}"

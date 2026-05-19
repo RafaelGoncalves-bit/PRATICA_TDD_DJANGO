@@ -1,0 +1,102 @@
+body {
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container-main {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      border: none;
+      border-radius: 1rem;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+      background-color: #f8f9fa;
+      color: #343a40;
+      padding: 2rem;
+      width: 100%;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    .btn-action {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+
+    /* --------------- LOGIN PAGE --------------------------- */
+
+    body {
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      border: none;
+      border-radius: 1rem;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 700px; /* Aumentado aqui */
+    }
+
+    .login-icon {
+      font-size: 3rem;
+      color: #0d6efd;
+    }
+
+    .form-control:focus {
+      box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    }
+
+    .form-label {
+      margin-top: 1rem;
+    }
+
+
+
+    .warning-icon {
+      font-size: 3rem;
+      color: #dc3545;
+    }
+
+    .btn-back {
+      margin-top: 1rem;
+    }
+
+
+    /* --------------- LOGOUT PAGE --------------------------- */
+
+    body {
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      border: none;
+      border-radius: 1rem;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .logout-icon {
+      font-size: 3rem;
+      color: #198754;
+    }
+
+    .btn-login {
+      margin-top: 1rem;
+    }

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -10,39 +11,9 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="{% static 'index.css' %}" rel="stylesheet">
 
-  <style>
-    body {
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: white;
-      margin: 0;
-      padding: 0;
-    }
-
-    .container-main {
-      min-height: 90vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .card {
-      border: none;
-      border-radius: 1rem;
-      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
-      background-color: #f8f9fa;
-      color: #343a40;
-      padding: 2rem;
-      width: 100%;
-      max-width: 600px;
-      text-align: center;
-    }
-
-    .btn-action {
-      width: 100%;
-      margin-bottom: 1rem;
-    }
-  </style>
 </head>
 
 <body>
@@ -52,14 +23,14 @@
 
       {% if not listar %}
 
-      <a href="#" class="btn btn-primary btn-action">
+      <a href="{% url 'criar' %}" class="btn btn-primary btn-action">
         <i class="fas fa-plus me-2"></i>Cadastrar
       </a>
 
 
-      <button onclick="window.location.href='/listar'" class="btn btn-secondary btn-action">
+      <a href="{% url 'listar' %}" class="btn btn-secondary btn-action">
         <i class="fas fa-list me-2"></i>Listar
-      </button>
+      </a>
 
 
       <a href="#" class="btn btn-warning btn-action text-white">
@@ -81,14 +52,33 @@
         <button onclick="window.location.href='/'" class="btn btn-danger btn-action">
           <i class="fas me-2"></i>Voltar
         </button>
-        {{ dados }}
-        {% endif %}
+        {% for link in dados %}
+
+<div class="card mt-3 p-3">
+
+    <h5>{{ link.titulo }}</h5>
+
+    <a href="{{ link.link }}" target="_blank">
+        {{ link.link }}
+    </a>
+
+    <p>{{ link.observacao }}</p>
+
+</div>
+
+{% empty %}
+
+<p>Nenhum link cadastrado</p>
+
+{% endfor %}
+{% endif %}
       </form>
     </div>
   </div>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{% static 'main.js' %}"></script>
 </body>
 
 </html>

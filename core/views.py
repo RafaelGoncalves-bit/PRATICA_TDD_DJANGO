@@ -29,7 +29,27 @@ def home(request):
     context = {}
     return render(request, 'index.html', context)
 
+@login_required
 def listar(request):
     data = LinkModel.objects.all()
-    context = {'dados': data, 'listar': True}
+
+    context = {
+        'dados': data,
+        'listar': True
+    }
+
     return render(request, 'index.html', context)
+
+@login_required
+def criar(request):
+
+    if request.method == "POST":
+
+        data = LinkModel.objects.create(
+            titulo=request.POST.get("nome"),
+            link=request.POST.get("url"),
+            observacao=request.POST.get("descricao")
+        )
+
+
+    return render(request, "cadastrar.html")

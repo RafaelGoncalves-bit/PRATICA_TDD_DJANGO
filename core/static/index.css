@@ -24,6 +24,18 @@ body {
       text-align: center;
     }
 
+    .card-listar {
+      border: none;
+      border-radius: 1rem;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+      background-color: #f8f9fa;
+      color: #343a40;
+      padding: 2rem;
+      width: 100%;
+      max-width: 6000px;
+      text-align: center;
+    }
+
     .btn-action {
       width: 100%;
       margin-bottom: 1rem;

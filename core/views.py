@@ -35,10 +35,9 @@ def listar(request):
 
     context = {
         'dados': data,
-        'listar': True
     }
 
-    return render(request, 'index.html', context)
+    return render(request, 'listar.html', context)
 
 @login_required
 def criar(request):
@@ -51,5 +50,24 @@ def criar(request):
             observacao=request.POST.get("descricao")
         )
 
-
     return render(request, "cadastrar.html")
+
+@login_required
+def editar(request, id):
+    data = LinkModel.objects.get(id=id)
+
+    if request.method == "POST":
+        data.titulo = request.POST.get("nome")
+        data.link = request.POST.get("url")
+        data.observacao = request.POST.get("descricao")
+
+        data.save()
+
+        return redirect("listar")
+
+    context = {
+    'dados': [data],
+    'editar': True
+}
+
+    return render(request, "listar.html", context)

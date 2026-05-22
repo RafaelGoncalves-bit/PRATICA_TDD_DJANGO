@@ -32,11 +32,6 @@
         <i class="fas fa-list me-2"></i>Listar
       </a>
 
-
-      <a href="#" class="btn btn-warning btn-action text-white">
-        <i class="fas fa-edit me-2"></i>Editar
-      </a>
-
       <a href="#" class="btn btn-danger btn-action">
         <i class="fas fa-trash-alt me-2"></i>Excluir
       </a>
@@ -48,30 +43,7 @@
         </button>
         {% endif %}
 
-        {% if listar %}
-        <button onclick="window.location.href='/'" class="btn btn-danger btn-action">
-          <i class="fas me-2"></i>Voltar
-        </button>
-        {% for link in dados %}
-
-<div class="card mt-3 p-3">
-
-    <h5>{{ link.titulo }}</h5>
-
-    <a href="{{ link.link }}" target="_blank">
-        {{ link.link }}
-    </a>
-
-    <p>{{ link.observacao }}</p>
-
-</div>
-
-{% empty %}
-
-<p>Nenhum link cadastrado</p>
-
-{% endfor %}
-{% endif %}
+        
       </form>
     </div>
   </div>

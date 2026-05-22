@@ -71,3 +71,6 @@ def editar(request, id):
 }
 
     return render(request, "listar.html", context)
+
+#TODO: Implementar a edição de links e criar a página de edição.
+#TODO: Implementar a exclusão de links e criar a página de confirmação de exclusão.

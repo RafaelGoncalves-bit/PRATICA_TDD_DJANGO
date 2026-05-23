@@ -68,9 +68,13 @@
             <button type="submit" class="btn btn-primary btn-lg">
               <i class="fas fa-plus me-2"></i>Cadastrar Link
             </button>
-            <button type="button" onclick="window.location.href='{% url 'listar' %}'" class="btn btn-outline-secondary btn-lg">
-              <i class="fas fa-arrow-left me-2"></i>Voltar
-            </button>
+            <a href="{% url 'listar' %}"
+   class="btn btn-outline-secondary btn-lg">
+
+    <i class="fas fa-arrow-left me-2"></i>
+    Voltar
+
+</a>
           </div>
         </form>
       </div>

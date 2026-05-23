@@ -16,45 +16,61 @@
 
 <body>
 
-    <div class="container container-main">
-        <div class="card-listar">
-
-
-            <button onclick="window.location.href='/'" class="btn btn-danger btn-action">
-                <i class="fas me-2"></i>Voltar
-            </button>
-
-
-            {% for link in dados %}
-
-
-            <div class="card-listar mt-3 p-3">
-
-                <h5>{{ link.titulo }}</h5>
-
-                <a href="{{ link.link }}" target="_blank">
-                    {{ link.link }}
-                </a>
-
-                <p>{{ link.observacao }}</p>
-
-                <a href="{% url 'editar' link.id %}" class=" text-black">
-                <i class="fas fa-edit me-2"></i>Editar
-            </a>
-
+    <div class="main-container">
+        <div class="main-card">
+            <div class="theme-toggle-wrapper text-end mb-3">
+                <button id="theme-toggle" type="button" class="btn btn-outline-secondary btn-sm">
+                    <i class="fas fa-moon me-1" id="theme-toggle-icon"></i>
+                    <span id="theme-toggle-text">Tema claro</span>
+                </button>
+            </div>
+            <div class="top-area">
+                <div>
+                    <div class="hero-badge">
+                      <i class="fas fa-folder-open"></i> Meus links
+                    </div>
+                    <h2 class="card-title mb-1">Links cadastrados</h2>
+                    <p class="text-secondary mb-0">Edite ou exclua os links que você não precisa mais.</p>
+                </div>
+                <div class="header-buttons">
+                    <a href="{% url 'criar' %}" class="btn-custom btn-primary-custom">Cadastrar novo</a>
+                    <a href="{% url 'home' %}" class="btn-custom btn-secondary-custom">Voltar</a>
+                </div>
             </div>
 
-            {% empty %}
-
-            <p>Nenhum link cadastrado</p>
-
-            {% endfor %}
-
-
-
+            {% if dados %}
+                <div class="links-grid">
+                    {% for link in dados %}
+                        <div class="link-card">
+                            <div class="link-top">
+                                <div>
+                                    <h5>{{ link.titulo }}</h5>
+                                </div>
+                                <span class="badge-custom">Link</span>
+                            </div>
+                            <a href="{{ link.link }}" target="_blank" class="link-url">{{ link.link }}</a>
+                            <p class="description">{{ link.observacao|default:"Sem observação" }}</p>
+                            <div class="actions">
+                                <a href="{% url 'editar' link.id %}" class="btn-action btn-edit">Editar</a>
+                                <form method="POST" action="{% url 'excluir' link.id %}" class="m-0">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="link_id" value="{{ link.id }}">
+                                    <button type="submit" class="btn-action btn-delete">Excluir</button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                    <div class="alert alert-info mb-0">Nenhum link cadastrado ainda. Clique em Cadastrar novo para adicionar.</div>
+                {% endif %}
+            </div>
         </div>
     </div>
 
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{% static 'main.js' %}"></script>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from core.forms import LoginForm, LinkForm
+from core.forms import LoginForm, LinkForm, DeleteLinkForm
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from core.models import LinkModel
@@ -32,7 +32,19 @@ def home(request):
 @login_required
 def listar(request):
     data = LinkModel.objects.all()
-    return render(request, 'listar.html', {'dados': data})
+    delete_form = DeleteLinkForm()
+    return render(request, 'listar.html', {'dados': data, 'delete_form': delete_form})
+
+
+@login_required
+def excluir(request, id):
+    link = get_object_or_404(LinkModel, id=id)
+    if request.method == 'POST':
+        form = DeleteLinkForm(request.POST)
+        if form.is_valid() and form.cleaned_data['link_id'] == id:
+            link.delete()
+            return redirect('listar')
+    return redirect('listar')
 
 
 @login_required

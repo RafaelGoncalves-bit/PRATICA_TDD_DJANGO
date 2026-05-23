@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 
-from core.forms import LinkForm, LoginForm
+from core.forms import DeleteLinkForm, LinkForm, LoginForm
 from core.models import LinkModel
 
 
@@ -27,6 +27,45 @@ class LinkFormTest(TestCase):
         })
         self.assertFalse(form.is_valid())
         self.assertIn('link', form.errors)
+
+    def test_duplicate_link_is_rejected(self):
+        LinkModel.objects.create(
+            titulo='Existente',
+            link='https://example.com',
+            observacao='Link já existente',
+        )
+        form = LinkForm({
+            'titulo': 'Teste',
+            'link': 'https://example.com',
+            'observacao': 'Tentativa duplicada',
+        })
+        self.assertFalse(form.is_valid())
+        self.assertIn('link', form.errors)
+        self.assertEqual(form.errors['link'], ['Este link já existe. Não pode ser igual.'])
+
+    def test_duplicate_link_allowed_on_same_instance(self):
+        link = LinkModel.objects.create(
+            titulo='Existente',
+            link='https://example.com',
+            observacao='Link já existente',
+        )
+        form = LinkForm({
+            'titulo': 'Existente',
+            'link': 'https://example.com',
+            'observacao': 'Mesmo link',
+        }, instance=link)
+        self.assertTrue(form.is_valid())
+
+
+class DeleteLinkFormTest(TestCase):
+    def test_valid_data(self):
+        form = DeleteLinkForm({'link_id': 1})
+        self.assertTrue(form.is_valid())
+
+    def test_invalid_link_id(self):
+        form = DeleteLinkForm({'link_id': 0})
+        self.assertFalse(form.is_valid())
+        self.assertIn('link_id', form.errors)
 
 
 class LinkViewsTest(TestCase):
@@ -78,6 +117,27 @@ class LinkViewsTest(TestCase):
         self.assertEqual(link.titulo, 'Link Atualizado')
         self.assertEqual(link.link, 'https://updated.com')
         self.assertEqual(link.observacao, 'Observação atualizada')
+        self.assertRedirects(response, reverse('listar'))
+
+    def test_excluir_post_deletes_link(self):
+        link = LinkModel.objects.create(
+            titulo='Link Para Deletar',
+            link='https://delete.com',
+            observacao='Observação antes de excluir',
+        )
+        response = self.client.post(reverse('excluir', args=[link.id]), {
+            'link_id': link.id,
+        })
+        self.assertEqual(LinkModel.objects.filter(id=link.id).count(), 0)
+        self.assertRedirects(response, reverse('listar'))
+
+    def test_excluir_get_redirects(self):
+        link = LinkModel.objects.create(
+            titulo='Link Para Deletar',
+            link='https://delete.com',
+            observacao='Observação antes de excluir',
+        )
+        response = self.client.get(reverse('excluir', args=[link.id]))
         self.assertRedirects(response, reverse('listar'))
 
 

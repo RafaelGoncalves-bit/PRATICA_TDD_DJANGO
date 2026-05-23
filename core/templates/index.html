@@ -17,34 +17,35 @@
 </head>
 
 <body>
-  <div class="container container-main">
-    <div class="card">
-      <h2 class="mb-4">Painel de Ações</h2>
-
-      {% if not listar %}
-
-      <a href="{% url 'criar' %}" class="btn btn-primary btn-action">
-        <i class="fas fa-plus me-2"></i>Cadastrar
-      </a>
-
-
-      <a href="{% url 'listar' %}" class="btn btn-secondary btn-action">
-        <i class="fas fa-list me-2"></i>Listar
-      </a>
-
-      <a href="#" class="btn btn-danger btn-action">
-        <i class="fas fa-trash-alt me-2"></i>Excluir
-      </a>
-
-      <form method="POST" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-outline-dark w-100 mt-3">
-          <i class="fas fa-sign-out-alt me-2"></i>Logout
-        </button>
-        {% endif %}
-
-        
-      </form>
+  <div class="container container-main py-5">
+    <div class="card action-card text-center mx-auto">
+      <div class="card-body">
+        <div class="theme-toggle-wrapper text-end mb-3">
+          <button id="theme-toggle" type="button" class="btn btn-outline-secondary btn-sm">
+            <i class="fas fa-moon me-1" id="theme-toggle-icon"></i>
+            <span id="theme-toggle-text">Tema claro</span>
+          </button>
+        </div>
+        <div class="hero-badge">
+          <i class="fas fa-link"></i> Link Management
+        </div>
+        <h1 class="card-title mb-3">Linkpedia</h1>
+        <p class="text-secondary mb-5">Organize os seus links com elegância e rapidez. Cadastre, edite e gerencie tudo em um só lugar.</p>
+        <div class="d-grid gap-3">
+          <a href="{% url 'criar' %}" class="btn btn-primary btn-lg">
+            <i class="fas fa-plus me-2"></i>Cadastrar link
+          </a>
+          <a href="{% url 'listar' %}" class="btn btn-outline-primary btn-lg">
+            <i class="fas fa-list me-2"></i>Ver links cadastrados
+          </a>
+          <form method="POST" action="{% url 'logout' %}" class="mb-0">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-dark btn-lg">
+              <i class="fas fa-sign-out-alt me-2"></i>Logout
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 

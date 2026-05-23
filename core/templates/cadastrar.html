@@ -17,26 +17,63 @@
 </head>
 
 <body>
-  <div class="container container-main">
-    <div class="card">
-      <h2 class="mb-4">Painel de Ações</h2>
+  <div class="container container-main py-5">
+    <div class="card form-card mx-auto">
+      <div class="card-body">
+        <div class="theme-toggle-wrapper text-end mb-3">
+          <button id="theme-toggle" type="button" class="btn btn-outline-secondary btn-sm">
+            <i class="fas fa-moon me-1" id="theme-toggle-icon"></i>
+            <span id="theme-toggle-text">Tema claro</span>
+          </button>
+        </div>
+        <div class="hero-badge">
+          <i class="fas fa-plus-circle"></i> Novo link
+        </div>
+        <h2 class="card-title mb-2">Cadastrar novo link</h2>
+        <p class="text-secondary mb-4">Informe os dados do link para armazenar com estilo e rapidez.</p>
 
-      <form method="POST" action="{% url 'criar' %}">
-        {% csrf_token %}
-        {% if form.non_field_errors %}
-          <div class="alert alert-danger">{{ form.non_field_errors }}</div>
-        {% endif %}
-        {{ form.titulo }}
-        {{ form.link }}
-        {{ form.observacao }}
-        <button type="submit" class="btn btn-primary w-100">
-          <i class="fas fa-plus me-2"></i>Cadastrar Link
-        </button>
-
-        <button type="button" onclick="window.location.href='/'" class="btn btn-danger btn-action mt-3">
-          <i class="fas me-2"></i>Voltar
-        </button>
-      </form>
+        <form method="POST" action="{% url 'criar' %}">
+          {% csrf_token %}
+          {% if form.non_field_errors %}
+            <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+          {% endif %}
+          <div class="mb-3 text-start">
+            {{ form.titulo.label_tag }}
+            {{ form.titulo }}
+            {% if form.titulo.errors %}
+              <div class="text-danger small mt-1">
+                {% for error in form.titulo.errors %}{{ error }}{% endfor %}
+              </div>
+            {% endif %}
+          </div>
+          <div class="mb-3 text-start">
+            {{ form.link.label_tag }}
+            {{ form.link }}
+            {% if form.link.errors %}
+              <div class="text-danger small mt-1">
+                {% for error in form.link.errors %}{{ error }}{% endfor %}
+              </div>
+            {% endif %}
+          </div>
+          <div class="mb-3 text-start">
+            {{ form.observacao.label_tag }}
+            {{ form.observacao }}
+            {% if form.observacao.errors %}
+              <div class="text-danger small mt-1">
+                {% for error in form.observacao.errors %}{{ error }}{% endfor %}
+              </div>
+            {% endif %}
+          </div>
+          <div class="d-grid gap-3">
+            <button type="submit" class="btn btn-primary btn-lg">
+              <i class="fas fa-plus me-2"></i>Cadastrar Link
+            </button>
+            <button type="button" onclick="window.location.href='{% url 'listar' %}'" class="btn btn-outline-secondary btn-lg">
+              <i class="fas fa-arrow-left me-2"></i>Voltar
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 

@@ -68,3 +68,26 @@ class LinkForm(ModelForm):
         help_texts = {
             'observacao': 'Opcional: descreva o propósito ou contexto do link.',
         }
+
+    def clean_link(self):
+        link = self.cleaned_data.get('link')
+        if not link:
+            return link
+
+        existing = LinkModel.objects.filter(link=link)
+        if self.instance.pk:
+            existing = existing.exclude(pk=self.instance.pk)
+
+        if existing.exists():
+            raise ValidationError('Este link já existe. Não pode ser igual.')
+        return link
+
+
+class DeleteLinkForm(forms.Form):
+    link_id = forms.IntegerField(widget=forms.HiddenInput)
+
+    def clean_link_id(self):
+        link_id = self.cleaned_data['link_id']
+        if link_id <= 0:
+            raise ValidationError('ID de link inválido.')
+        return link_id

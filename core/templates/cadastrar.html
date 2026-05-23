@@ -21,23 +21,21 @@
     <div class="card">
       <h2 class="mb-4">Painel de Ações</h2>
 
-      
-
       <form method="POST" action="{% url 'criar' %}">
         {% csrf_token %}
-        <input type="text" name="nome" class="form-control mb-3" placeholder="Nome do Link" required>
-        <input type="url" name="url" class="form-control mb-3" placeholder="URL do Link" required>
-        <input type="text" name="descricao" class="form-control mb-3" placeholder="Descrição do Link" required>
+        {% if form.non_field_errors %}
+          <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+        {% endif %}
+        {{ form.titulo }}
+        {{ form.link }}
+        {{ form.observacao }}
         <button type="submit" class="btn btn-primary w-100">
           <i class="fas fa-plus me-2"></i>Cadastrar Link
         </button>
-        
 
-        
-        <button onclick="window.location.href='/'" class="btn btn-danger btn-action mt-3">
+        <button type="button" onclick="window.location.href='/'" class="btn btn-danger btn-action mt-3">
           <i class="fas me-2"></i>Voltar
         </button>
-        
       </form>
     </div>
   </div>
